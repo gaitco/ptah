@@ -35,9 +35,11 @@ void main() {
       expect(await command().run('blog', parentDir: dir.path), 0);
       final root = p.join(dir.path, 'blog');
       final pubspec = File(p.join(root, 'pubspec.yaml')).readAsStringSync();
-      expect(pubspec, contains('maat: ^0.1.0'));
+      expect(pubspec, contains('maat: ^0.1.1'));
       expect(pubspec, contains('seshat_maat: ^0.1.0'));
       expect(pubspec, contains('amarna: ^0.1.0'));
+      expect(pubspec, contains('sistrum: ^0.1.0'));
+      expect(pubspec, contains('thoth_realtime: ^0.1.0'));
       // Guards every placeholder, not just today's two: an unfilled `{{ ... }}`
       // is not valid YAML, so `pub get` fails in the generated project.
       expect(pubspec, isNot(contains('{{')));
@@ -49,6 +51,39 @@ void main() {
       ]);
       expect(out.toString(), contains('cd blog'));
       expect(out.toString(), contains('maat serve'));
+      expect(
+        File(p.join(root, 'config', 'broadcasting.dart')).existsSync(),
+        isTrue,
+      );
+      expect(File(p.join(root, 'config', 'thoth.dart')).existsSync(), isTrue);
+      expect(
+        File(p.join(root, 'routes', 'channels.dart')).existsSync(),
+        isTrue,
+      );
+      final bootstrap = File(
+        p.join(root, 'bootstrap', 'app.dart'),
+      ).readAsStringSync();
+      expect(bootstrap, contains('BroadcastServiceProvider.new'));
+      expect(bootstrap, contains('ThothServiceProvider.new'));
+      final kernel = File(
+        p.join(root, 'lib', 'app', 'console', 'kernel.dart'),
+      ).readAsStringSync();
+      expect(kernel, contains('ThothStartCommand()'));
+      expect(kernel, contains('ThothPingCommand()'));
+      final environment = File(p.join(root, '.env.example')).readAsStringSync();
+      for (final key in [
+        'BROADCAST_CONNECTION',
+        'PUSHER_APP_ID',
+        'PUSHER_APP_KEY',
+        'PUSHER_APP_SECRET',
+        'PUSHER_HOST',
+        'PUSHER_PORT',
+        'PUSHER_SCHEME',
+        'THOTH_HOST',
+        'THOTH_PORT',
+      ]) {
+        expect(environment, contains('$key='));
+      }
     },
   );
 
@@ -62,10 +97,12 @@ void main() {
     final pubspec = File(
       p.join(dir.path, 'blog', 'pubspec.yaml'),
     ).readAsStringSync();
-    expect(pubspec, contains('maat: ^0.1.0'));
+    expect(pubspec, contains('maat: ^0.1.1'));
     expect(pubspec, contains('dependency_overrides:'));
     expect(pubspec, contains('path: /tmp/fw'));
     expect(pubspec, contains('path: ${p.join('/tmp', 'amarna')}'));
+    expect(pubspec, contains('path: ${p.join('/tmp', 'sistrum')}'));
+    expect(pubspec, contains('path: ${p.join('/tmp', 'thoth')}'));
     expect(
       pubspec,
       contains('path: ${p.join('/tmp', 'seshat')}\n  khnum_maat:'),
@@ -122,11 +159,41 @@ void main() {
     final pubspec = File(p.join(root, 'pubspec.yaml')).readAsStringSync();
     expect(pubspec, isNot(contains('khnum_maat')));
     expect(pubspec, contains('amarna'));
+    expect(pubspec, contains('sistrum'));
+    expect(pubspec, contains('thoth_realtime: ^0.1.0'));
     final bootstrap = File(
       p.join(root, 'bootstrap', 'app.dart'),
     ).readAsStringSync();
     expect(bootstrap, isNot(contains('ViewServiceProvider')));
     expect(bootstrap, contains('MailServiceProvider.new'));
+    expect(bootstrap, contains('NotificationServiceProvider.new'));
+    expect(bootstrap, contains('BroadcastServiceProvider.new'));
+    expect(bootstrap, contains('ThothServiceProvider.new'));
+    final kernel = File(
+      p.join(root, 'lib', 'app', 'console', 'kernel.dart'),
+    ).readAsStringSync();
+    expect(kernel, contains('ThothStartCommand()'));
+    expect(kernel, contains('ThothPingCommand()'));
+    expect(
+      File(p.join(root, 'config', 'broadcasting.dart')).existsSync(),
+      isTrue,
+    );
+    expect(File(p.join(root, 'config', 'thoth.dart')).existsSync(), isTrue);
+    expect(File(p.join(root, 'routes', 'channels.dart')).existsSync(), isTrue);
+    final environment = File(p.join(root, '.env.example')).readAsStringSync();
+    for (final key in [
+      'BROADCAST_CONNECTION',
+      'PUSHER_APP_ID',
+      'PUSHER_APP_KEY',
+      'PUSHER_APP_SECRET',
+      'PUSHER_HOST',
+      'PUSHER_PORT',
+      'PUSHER_SCHEME',
+      'THOTH_HOST',
+      'THOTH_PORT',
+    ]) {
+      expect(environment, contains('$key='));
+    }
     final config = File(
       p.join(root, 'config', 'config.dart'),
     ).readAsStringSync();

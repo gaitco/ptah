@@ -76,14 +76,20 @@ ${api ? '' : '''  khnum_maat:
     path: ${p.join(packagesPath, 'khnum')}'''}
   amarna:
     path: ${p.join(packagesPath, 'amarna')}
+  sistrum:
+    path: ${p.join(packagesPath, 'sistrum')}
+  thoth_realtime:
+    path: ${p.join(packagesPath, 'thoth')}
 ''';
     await SkeletonCopier(skeletonDir).copyTo(
       root,
       {
         'name': name,
-        'maat_dependency': '^0.1.0',
+        'maat_dependency': '^0.1.1',
         'seshat_maat_dependency': '^0.1.0',
         'amarna_dependency': '^0.1.0',
+        'sistrum_dependency': '^0.1.0',
+        'thoth_dependency': '^0.1.0',
         'view_dependency': api ? '' : '\n  khnum_maat: ^0.1.0',
         'dependency_overrides': dependencyOverrides,
         'view_provider': api ? '' : '\n          ViewServiceProvider.new,',
