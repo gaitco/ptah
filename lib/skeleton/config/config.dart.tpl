@@ -1,14 +1,18 @@
 import 'app.dart';
+import 'broadcasting.dart';
 import 'cors.dart';
 import 'database.dart';{{ view_config_import }}
 import 'http.dart';
 import 'mail.dart';
+import 'thoth.dart';
 
 /// Every config file, keyed by the name used in `config('name.key')`.
 final Map<String, dynamic> appConfig = {
   'app': app,
+  'broadcasting': broadcasting,
   'cors': cors,
   'database': database,{{ view_config_entry }}
   'http': http,
   'mail': mail,
+  'thoth': thoth,
 };

@@ -22,9 +22,11 @@ void main() {
   final viewCorePath = p.normalize(
     p.join(Directory.current.path, '..', 'khnum'),
   );
-  final mailPath = p.normalize(
-    p.join(Directory.current.path, '..', 'amarna'),
+  final mailPath = p.normalize(p.join(Directory.current.path, '..', 'amarna'));
+  final notificationPath = p.normalize(
+    p.join(Directory.current.path, '..', 'sistrum'),
   );
+  final thothPath = p.normalize(p.join(Directory.current.path, '..', 'thoth'));
   late Directory dir;
   setUp(() => dir = Directory.systemTemp.createTempSync('skeleton'));
   tearDown(() => dir.deleteSync(recursive: true));
@@ -33,9 +35,11 @@ void main() {
   // skeleton file with an unfilled `{{ ... }}` token.
   Map<String, String> replacements({String dependencyOverrides = ''}) => {
     'name': 'blog',
-    'maat_dependency': '^0.1.0',
+    'maat_dependency': '^0.1.1',
     'seshat_maat_dependency': '^0.1.0',
     'amarna_dependency': '^0.1.0',
+    'sistrum_dependency': '^0.1.0',
+    'thoth_dependency': '^0.1.0',
     'view_dependency': '\n  khnum_maat: ^0.1.0',
     'dependency_overrides': dependencyOverrides,
     'view_provider': '\n          ViewServiceProvider.new,',
@@ -109,6 +113,14 @@ void main() {
       File(p.join(dir.path, 'pubspec.yaml')).readAsStringSync(),
       contains('amarna: ^0.1.0'),
     );
+    expect(
+      File(p.join(dir.path, 'pubspec.yaml')).readAsStringSync(),
+      contains('sistrum: ^0.1.0'),
+    );
+    expect(
+      File(p.join(dir.path, 'pubspec.yaml')).readAsStringSync(),
+      contains('thoth_realtime: ^0.1.0'),
+    );
     final databaseConfig = File(
       p.join(dir.path, 'config', 'database.dart'),
     ).readAsStringSync();
@@ -137,12 +149,23 @@ void main() {
     ).readAsStringSync();
     expect(bootstrap, contains('DatabaseServiceProvider.new'));
     expect(bootstrap, contains('MailServiceProvider.new'));
+    expect(bootstrap, contains('NotificationServiceProvider.new'));
+    expect(bootstrap, contains('BroadcastServiceProvider.new'));
+    expect(bootstrap, contains('ThothServiceProvider.new'));
     expect(
       bootstrap.indexOf('MailServiceProvider.new'),
       greaterThan(bootstrap.indexOf('ViewServiceProvider.new')),
     );
     expect(
       bootstrap.indexOf('MailServiceProvider.new'),
+      lessThan(bootstrap.indexOf('RouteServiceProvider')),
+    );
+    expect(
+      bootstrap.indexOf('NotificationServiceProvider.new'),
+      greaterThan(bootstrap.indexOf('MailServiceProvider.new')),
+    );
+    expect(
+      bootstrap.indexOf('NotificationServiceProvider.new'),
       lessThan(bootstrap.indexOf('RouteServiceProvider')),
     );
     expect(
@@ -167,6 +190,13 @@ void main() {
       contains('databaseCommands(migrations: migrations, seeders: seeders)'),
     );
     expect(kernel, contains('MakeMailCommand()'));
+    expect(kernel, contains('MakeNotificationCommand()'));
+    expect(kernel, contains('ThothStartCommand()'));
+    expect(kernel, contains('ThothPingCommand()'));
+    final migrations = File(
+      p.join(dir.path, 'database', 'migrations.dart'),
+    ).readAsStringSync();
+    expect(migrations, contains('...sistrumMigrations'));
     final environment = File(
       p.join(dir.path, '.env.example'),
     ).readAsStringSync();
@@ -180,6 +210,15 @@ void main() {
       'MAIL_ENCRYPTION',
       'MAIL_FROM_ADDRESS',
       'MAIL_FROM_NAME',
+      'BROADCAST_CONNECTION',
+      'PUSHER_APP_ID',
+      'PUSHER_APP_KEY',
+      'PUSHER_APP_SECRET',
+      'PUSHER_HOST',
+      'PUSHER_PORT',
+      'PUSHER_SCHEME',
+      'THOTH_HOST',
+      'THOTH_PORT',
     ]) {
       expect(environment, contains('$key='));
     }
@@ -268,6 +307,10 @@ dependency_overrides:
     path: $viewCorePath
   amarna:
     path: $mailPath
+  sistrum:
+    path: $notificationPath
+  thoth_realtime:
+    path: $thothPath
 ''',
         ),
       );
