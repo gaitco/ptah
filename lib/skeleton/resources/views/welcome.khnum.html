@@ -1,0 +1,21 @@
+@extends("layouts.guest")
+
+@section("title", appName)
+
+@section("content")
+  <div class="text-center">
+    <p class="text-base font-semibold text-indigo-600 dark:text-indigo-400">Maat</p>
+    <h1 class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl dark:text-white">{{ appName }}</h1>
+    <p class="mt-6 text-base leading-7 text-gray-600 dark:text-gray-400">
+      Your application is running. Edit <code class="rounded bg-gray-100 px-1 py-0.5 text-sm dark:bg-white/10">resources/views/welcome.khnum.html</code> to change this page.
+    </p>
+    <div class="mt-10 flex items-center justify-center gap-x-4">
+      <a href="/dashboard" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">
+        Go to the dashboard
+      </a>
+      <a href="https://github.com/gaitco/maat" class="text-sm font-semibold text-gray-900 dark:text-white">
+        Documentation <span aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+  </div>
+@endsection

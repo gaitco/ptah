@@ -1,0 +1,32 @@
+@extends("layouts.app")
+
+@section("title", "Dashboard")
+
+@section("content")
+  <h1 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Dashboard</h1>
+
+  <dl class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-3">
+    <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow-sm ring-1 ring-gray-900/5 sm:p-6 dark:bg-gray-800 dark:ring-white/10">
+      <dt class="truncate text-sm font-medium text-gray-500 dark:text-gray-400">Requests today</dt>
+      <dd class="mt-1 text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">0</dd>
+    </div>
+    <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow-sm ring-1 ring-gray-900/5 sm:p-6 dark:bg-gray-800 dark:ring-white/10">
+      <dt class="truncate text-sm font-medium text-gray-500 dark:text-gray-400">Average response</dt>
+      <dd class="mt-1 text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">0 ms</dd>
+    </div>
+    <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow-sm ring-1 ring-gray-900/5 sm:p-6 dark:bg-gray-800 dark:ring-white/10">
+      <dt class="truncate text-sm font-medium text-gray-500 dark:text-gray-400">Errors</dt>
+      <dd class="mt-1 text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">0</dd>
+    </div>
+  </dl>
+
+  <div class="mt-8">
+    <x-card title="Getting started">
+      <ol class="list-decimal space-y-2 pl-5 text-sm text-gray-600 dark:text-gray-400">
+        <li>Run <code class="rounded bg-gray-100 px-1 py-0.5 dark:bg-white/10">maat tailwind --watch</code> in a second terminal to compile CSS.</li>
+        <li>Add routes in <code class="rounded bg-gray-100 px-1 py-0.5 dark:bg-white/10">routes/web.dart</code>.</li>
+        <li>Add templates under <code class="rounded bg-gray-100 px-1 py-0.5 dark:bg-white/10">resources/views/</code>.</li>
+      </ol>
+    </x-card>
+  </div>
+@endsection

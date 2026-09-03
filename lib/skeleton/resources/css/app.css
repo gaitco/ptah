@@ -1,0 +1,9 @@
+/* Tailwind v4 is configured in CSS, not in a JavaScript file.
+   `source(none)` turns off automatic content detection, which would
+   otherwise walk up to the repository root and scan every package; the
+   templates are named explicitly instead. */
+@import "tailwindcss" source(none);
+@source "../views";
+@plugin "@tailwindcss/forms";
+
+[x-cloak] { display: none !important; }

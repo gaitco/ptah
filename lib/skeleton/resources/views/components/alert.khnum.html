@@ -1,0 +1,4 @@
+@props({"variant": "info"})
+<div class="rounded-md p-4 text-sm {{ variant == 'error' ? 'bg-red-50 text-red-700 dark:bg-red-500/10 dark:text-red-400' : 'bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400' }}">
+  {{ slot }}
+</div>

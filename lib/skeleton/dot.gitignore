@@ -1,0 +1,8 @@
+.dart_tool/
+build/
+public/css/app.css
+.maat/
+.env
+database/database.sqlite
+storage/logs/*
+!storage/logs/.gitkeep

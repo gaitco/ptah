@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" class="h-full bg-gray-50 dark:bg-gray-900">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>@yield("title", appName)</title>
+  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+  <script defer
+          src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.1/dist/cdn.min.js"
+          integrity="sha384-x6MR287ZDHWauvRTQIBc3b1F++s/03J/rBHbpRGwBoYbrqIN+3wRx4EXbU1u9NGO"
+          crossorigin="anonymous"></script>
+</head>
+<body class="h-full">
+<div x-data="{ open: false }">
+  {{-- Mobile off-canvas sidebar --}}
+  <div x-show="open" x-cloak class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
+    <div x-show="open" x-transition.opacity class="fixed inset-0 bg-gray-900/80"></div>
+    <div class="fixed inset-0 flex">
+      <div x-show="open" x-transition @click.outside="open = false" class="relative mr-16 flex w-full max-w-xs flex-1">
+        <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4 dark:bg-gray-800">
+          <div class="flex h-16 shrink-0 items-center text-lg font-semibold text-gray-900 dark:text-white">{{ appName }}</div>
+          <nav class="flex flex-1 flex-col gap-y-1">
+            <x-nav-link href="/">Home</x-nav-link>
+            <x-nav-link href="/dashboard">Dashboard</x-nav-link>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{-- Desktop sidebar --}}
+  <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+    <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4 dark:border-white/10 dark:bg-gray-800">
+      <div class="flex h-16 shrink-0 items-center text-lg font-semibold text-gray-900 dark:text-white">{{ appName }}</div>
+      <nav class="flex flex-1 flex-col gap-y-1">
+        <x-nav-link href="/">Home</x-nav-link>
+        <x-nav-link href="/dashboard">Dashboard</x-nav-link>
+      </nav>
+    </div>
+  </div>
+
+  <div class="lg:pl-72">
+    <div class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8 dark:border-white/10 dark:bg-gray-800">
+      <button type="button" @click="open = true" class="-m-2.5 p-2.5 text-gray-700 lg:hidden dark:text-gray-400">
+        <span class="sr-only">Open sidebar</span>
+        <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+      <div class="flex flex-1 justify-end" x-data="{ menu: false }">
+        <div class="relative">
+          <button type="button" @click="menu = !menu" class="flex items-center gap-x-2 text-sm font-semibold text-gray-900 dark:text-white">
+            Account
+            <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+            </svg>
+          </button>
+          <div x-show="menu" x-cloak @click.outside="menu = false" class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 dark:bg-gray-800 dark:ring-white/10">
+            <a href="#" class="block px-3 py-1 text-sm text-gray-900 dark:text-white">Sign out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main class="py-10">
+      <div class="px-4 sm:px-6 lg:px-8">
+        @yield("content")
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

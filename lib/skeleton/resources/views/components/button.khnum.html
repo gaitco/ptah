@@ -1,0 +1,4 @@
+@props({"variant": "primary", "type": "button"})
+<button type="{{ type }}" class="inline-flex items-center justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 {{ variant == 'primary' ? 'bg-indigo-600 text-white hover:bg-indigo-500' : 'bg-white text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:bg-white/10 dark:text-white dark:ring-white/20 dark:hover:bg-white/20' }}">
+  {{ slot }}
+</button>
