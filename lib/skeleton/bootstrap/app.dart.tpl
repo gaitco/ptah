@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:maat/maat.dart';
-import 'package:maat_amarna/maat_amarna.dart';
-import 'package:maat_seshat/maat_seshat.dart';{{ view_import }}
+import 'package:amarna/amarna.dart';
+import 'package:seshat_maat/seshat_maat.dart';{{ view_import }}
 import 'package:{{ name }}/app/providers/app_service_provider.dart';
 import 'package:{{ name }}/app/providers/route_service_provider.dart';
 

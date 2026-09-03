@@ -66,25 +66,25 @@ class NewCommand {
 dependency_overrides:
   maat:
     path: $maatPath
-  maat_seshat:
-    path: ${p.join(packagesPath, 'maat_seshat')}
-  maat_seshat_core:
-    path: ${p.join(packagesPath, 'maat_seshat_core')}
-${api ? '' : '''  maat_khnum:
-    path: ${p.join(packagesPath, 'maat_khnum')}
-  maat_khnum_core:
-    path: ${p.join(packagesPath, 'maat_khnum_core')}'''}
-  maat_amarna:
-    path: ${p.join(packagesPath, 'maat_amarna')}
+  seshat_maat:
+    path: ${p.join(packagesPath, 'seshat_maat')}
+  seshat:
+    path: ${p.join(packagesPath, 'seshat')}
+${api ? '' : '''  khnum_maat:
+    path: ${p.join(packagesPath, 'khnum_maat')}
+  khnum:
+    path: ${p.join(packagesPath, 'khnum')}'''}
+  amarna:
+    path: ${p.join(packagesPath, 'amarna')}
 ''';
     await SkeletonCopier(skeletonDir).copyTo(
       root,
       {
         'name': name,
         'maat_dependency': '^0.1.0',
-        'maat_seshat_dependency': '^0.1.0',
+        'seshat_maat_dependency': '^0.1.0',
         'amarna_dependency': '^0.1.0',
-        'view_dependency': api ? '' : '\n  maat_khnum: ^0.1.0',
+        'view_dependency': api ? '' : '\n  khnum_maat: ^0.1.0',
         'dependency_overrides': dependencyOverrides,
         'view_provider': api ? '' : '\n          ViewServiceProvider.new,',
         'view_commands': api ? '' : ', ...viewCommands()',
@@ -92,10 +92,10 @@ ${api ? '' : '''  maat_khnum:
         'view_config_entry': api ? '' : "\n  'view': view,",
         'view_import': api
             ? ''
-            : "\nimport 'package:maat_khnum/maat_khnum.dart';",
+            : "\nimport 'package:khnum_maat/khnum_maat.dart';",
         'view_commands_import': api
             ? ''
-            : "\nimport 'package:maat_khnum/maat_khnum.dart';",
+            : "\nimport 'package:khnum_maat/khnum_maat.dart';",
         'web_routes_body': api
             ? "  Route.get('/', (Request request) => {'framework': 'Maat'});"
             : "  Route.get('/', (Request request) => view('welcome'));\n"
