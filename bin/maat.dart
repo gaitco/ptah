@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:isolate';
 
 import 'package:args/args.dart';
-import 'package:maat_ptah/src/new_command.dart';
+import 'package:ptah/src/new_command.dart';
 
 const _usage = '''
 Maat installer
@@ -49,7 +49,7 @@ Future<void> main(List<String> args) async {
 
 Future<String> _skeletonDir() async {
   final uri = await Isolate.resolvePackageUri(
-    Uri.parse('package:maat_ptah/skeleton/'),
+    Uri.parse('package:ptah/skeleton/'),
   );
   if (uri == null) throw StateError('Could not locate the bundled skeleton.');
   return uri.toFilePath();

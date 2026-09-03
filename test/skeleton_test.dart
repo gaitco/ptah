@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:maat_khnum_core/maat_khnum_core.dart';
-import 'package:maat_ptah/src/skeleton_copier.dart';
+import 'package:khnum/khnum.dart';
+import 'package:ptah/src/skeleton_copier.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
@@ -11,19 +11,19 @@ void main() {
     p.join(Directory.current.path, '..', 'maat'),
   );
   final databasePath = p.normalize(
-    p.join(Directory.current.path, '..', 'maat_seshat'),
+    p.join(Directory.current.path, '..', 'seshat_maat'),
   );
   final databaseCorePath = p.normalize(
-    p.join(Directory.current.path, '..', 'maat_seshat_core'),
+    p.join(Directory.current.path, '..', 'seshat'),
   );
   final viewPath = p.normalize(
-    p.join(Directory.current.path, '..', 'maat_khnum'),
+    p.join(Directory.current.path, '..', 'khnum_maat'),
   );
   final viewCorePath = p.normalize(
-    p.join(Directory.current.path, '..', 'maat_khnum_core'),
+    p.join(Directory.current.path, '..', 'khnum'),
   );
   final mailPath = p.normalize(
-    p.join(Directory.current.path, '..', 'maat_amarna'),
+    p.join(Directory.current.path, '..', 'amarna'),
   );
   late Directory dir;
   setUp(() => dir = Directory.systemTemp.createTempSync('skeleton'));
@@ -34,16 +34,16 @@ void main() {
   Map<String, String> replacements({String dependencyOverrides = ''}) => {
     'name': 'blog',
     'maat_dependency': '^0.1.0',
-    'maat_seshat_dependency': '^0.1.0',
+    'seshat_maat_dependency': '^0.1.0',
     'amarna_dependency': '^0.1.0',
-    'view_dependency': '\n  maat_khnum: ^0.1.0',
+    'view_dependency': '\n  khnum_maat: ^0.1.0',
     'dependency_overrides': dependencyOverrides,
     'view_provider': '\n          ViewServiceProvider.new,',
     'view_commands': ', ...viewCommands()',
     'view_config_import': "\nimport 'view.dart';",
     'view_config_entry': "\n  'view': view,",
-    'view_import': "\nimport 'package:maat_khnum/maat_khnum.dart';",
-    'view_commands_import': "\nimport 'package:maat_khnum/maat_khnum.dart';",
+    'view_import': "\nimport 'package:khnum_maat/khnum_maat.dart';",
+    'view_commands_import': "\nimport 'package:khnum_maat/khnum_maat.dart';",
     'web_routes_body':
         "  Route.get('/', (Request request) => view('welcome'));\n"
         "  Route.get('/dashboard', (Request request) => view('dashboard'));",
@@ -103,11 +103,11 @@ void main() {
     );
     expect(
       File(p.join(dir.path, 'pubspec.yaml')).readAsStringSync(),
-      contains('maat_seshat: ^0.1.0'),
+      contains('seshat_maat: ^0.1.0'),
     );
     expect(
       File(p.join(dir.path, 'pubspec.yaml')).readAsStringSync(),
-      contains('maat_amarna: ^0.1.0'),
+      contains('amarna: ^0.1.0'),
     );
     final databaseConfig = File(
       p.join(dir.path, 'config', 'database.dart'),
@@ -258,15 +258,15 @@ void main() {
 dependency_overrides:
   maat:
     path: $frameworkPath
-  maat_seshat:
+  seshat_maat:
     path: $databasePath
-  maat_seshat_core:
+  seshat:
     path: $databaseCorePath
-  maat_khnum:
+  khnum_maat:
     path: $viewPath
-  maat_khnum_core:
+  khnum:
     path: $viewCorePath
-  maat_amarna:
+  amarna:
     path: $mailPath
 ''',
         ),

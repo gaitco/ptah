@@ -6,8 +6,8 @@ environment:
   sdk: ^3.12.0
 dependencies:
   maat: {{ maat_dependency }}
-  maat_seshat: {{ maat_seshat_dependency }}
-  maat_amarna: {{ amarna_dependency }}{{ view_dependency }}
+  seshat_maat: {{ seshat_maat_dependency }}
+  amarna: {{ amarna_dependency }}{{ view_dependency }}
 dev_dependencies:
   lints: ^6.1.0
   test: ^1.31.2

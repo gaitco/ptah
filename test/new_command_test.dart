@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:maat_ptah/src/new_command.dart';
+import 'package:ptah/src/new_command.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
@@ -36,8 +36,8 @@ void main() {
       final root = p.join(dir.path, 'blog');
       final pubspec = File(p.join(root, 'pubspec.yaml')).readAsStringSync();
       expect(pubspec, contains('maat: ^0.1.0'));
-      expect(pubspec, contains('maat_seshat: ^0.1.0'));
-      expect(pubspec, contains('maat_amarna: ^0.1.0'));
+      expect(pubspec, contains('seshat_maat: ^0.1.0'));
+      expect(pubspec, contains('amarna: ^0.1.0'));
       // Guards every placeholder, not just today's two: an unfilled `{{ ... }}`
       // is not valid YAML, so `pub get` fails in the generated project.
       expect(pubspec, isNot(contains('{{')));
@@ -65,10 +65,10 @@ void main() {
     expect(pubspec, contains('maat: ^0.1.0'));
     expect(pubspec, contains('dependency_overrides:'));
     expect(pubspec, contains('path: /tmp/fw'));
-    expect(pubspec, contains('path: ${p.join('/tmp', 'maat_amarna')}'));
+    expect(pubspec, contains('path: ${p.join('/tmp', 'amarna')}'));
     expect(
       pubspec,
-      contains('path: ${p.join('/tmp', 'maat_seshat_core')}\n  maat_khnum:'),
+      contains('path: ${p.join('/tmp', 'seshat')}\n  khnum_maat:'),
     );
     expect(pubspec, isNot(contains('{{')));
     expect(processes, isEmpty);
@@ -120,8 +120,8 @@ void main() {
       isFalse,
     );
     final pubspec = File(p.join(root, 'pubspec.yaml')).readAsStringSync();
-    expect(pubspec, isNot(contains('maat_khnum')));
-    expect(pubspec, contains('maat_amarna'));
+    expect(pubspec, isNot(contains('khnum_maat')));
+    expect(pubspec, contains('amarna'));
     final bootstrap = File(
       p.join(root, 'bootstrap', 'app.dart'),
     ).readAsStringSync();
@@ -164,7 +164,7 @@ void main() {
       isTrue,
     );
     final pubspec = File(p.join(root, 'pubspec.yaml')).readAsStringSync();
-    expect(pubspec, contains('maat_khnum'));
+    expect(pubspec, contains('khnum_maat'));
     final bootstrap = File(
       p.join(root, 'bootstrap', 'app.dart'),
     ).readAsStringSync();

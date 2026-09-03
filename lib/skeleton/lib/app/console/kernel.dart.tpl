@@ -1,6 +1,6 @@
 import 'package:maat/maat.dart';
-import 'package:maat_amarna/maat_amarna.dart';
-import 'package:maat_seshat/maat_seshat.dart';{{ view_commands_import }}
+import 'package:amarna/amarna.dart';
+import 'package:seshat_maat/seshat_maat.dart';{{ view_commands_import }}
 
 /// Application console commands. `make:command` creates classes under
 /// commands/; add an instance to the returned list to register it.

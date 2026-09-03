@@ -1,4 +1,4 @@
-import 'package:maat_seshat/maat_seshat.dart';
+import 'package:seshat_maat/seshat_maat.dart';
 
 /// Every migration, in the order they run.
 final migrations = <Migration>[

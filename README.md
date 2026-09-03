@@ -6,7 +6,7 @@ Ptah creates Maat applications and forwards project commands to the Sesh
 console.
 
 ```bash
-dart pub global activate maat_ptah
+dart pub global activate ptah
 maat new blog
 cd blog
 maat serve
