@@ -64,7 +64,7 @@ void main() {
   });
 
   test('the app layout links the compiled stylesheet and loads Alpine', () {
-    layoutKhnum.helper('asset', (args) => '/${args.first}');
+    layoutKhnum.function('asset', (args) => '/${args.first}');
     final html = layoutKhnum.renderSync('layouts.app', {'appName': 'Test'});
     expect(html, contains('/css/app.css'));
     expect(html, contains('alpinejs@3.17.1'));
@@ -77,14 +77,14 @@ void main() {
   });
 
   test('the guest layout has no navigation chrome', () {
-    layoutKhnum.helper('asset', (args) => '/${args.first}');
+    layoutKhnum.function('asset', (args) => '/${args.first}');
     final html = layoutKhnum.renderSync('layouts.guest', {'appName': 'Test'});
     expect(html, contains('/css/app.css'));
     expect(html, isNot(contains('<nav')));
   });
 
   test('welcome renders through the guest layout', () {
-    layoutKhnum.helper('asset', (args) => '/${args.first}');
+    layoutKhnum.function('asset', (args) => '/${args.first}');
     final html = layoutKhnum.renderSync('welcome', {'appName': 'Test'});
     expect(html, contains('<!doctype html>'));
     expect(html, contains('/css/app.css'));
@@ -92,7 +92,7 @@ void main() {
   });
 
   test('dashboard renders through the app layout', () {
-    layoutKhnum.helper('asset', (args) => '/${args.first}');
+    layoutKhnum.function('asset', (args) => '/${args.first}');
     final html = layoutKhnum.renderSync('dashboard', {'appName': 'Test'});
     expect(html, contains('x-data'));
     expect(html, contains('/css/app.css'));
